@@ -1,0 +1,15 @@
+/*
+Bitcoin locking script contract contains a shasum of future data
+required to be input to spend the output with the specified public key.
+*/
+import "./CheckDataIntegrity.scrypt";
+
+contract VerifyDataP2PKH {
+    Ripemd160 pubKeyHash;
+    Sha256 hash;
+    public function checkAndSpend(bytes data, Sig sig, PubKey pubKey) {
+        CheckDataIntegrity dataCheck = new CheckDataIntegrity(this.hash);
+        P2PKH p2pk = new P2PKH(this.pubKeyHash);
+        require(dataCheck.validateDataChecksum(data) && p2pk.spend(sig, pubKey));
+    }
+}

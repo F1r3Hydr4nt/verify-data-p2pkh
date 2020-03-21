@@ -1,0 +1,10 @@
+// Simple sha256 data verify contract
+contract CheckDataIntegrity {
+    Sha256 hash;
+    constructor(Sha256 shaSum) {
+        this.hash = shaSum;
+    }
+    public function validateDataChecksum(bytes dataBytes) {
+        require(hash256(dataBytes) == this.hash);
+    }
+}
