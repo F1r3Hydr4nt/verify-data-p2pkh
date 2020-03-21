@@ -16,11 +16,11 @@ describe('Test sCrypt contract CheckDataIntegrity In Javascript', () => {
 
   before(() => {
     const CheckDataIntegrity = buildContractClass(path.join(__dirname, '../../contracts/CheckDataIntegrity.scrypt'));
-    testContract = new CheckDataIntegrity(sha256hash)
+    testContract = new CheckDataIntegrity(sha256hash) // Either I am initialising the contract with the wrong data type !!
   });
 
   it('shasum check should succeed when correct data is provided', () => {
-    expect(testContract.validateDataChecksum(fileData)).to.equal(true);
+    expect(testContract.validateDataChecksum(fileData)).to.equal(true);// Or I am passing the wrong data type here !!
   });
 
   it('shasum check should fail when wrong data provided', () => {
