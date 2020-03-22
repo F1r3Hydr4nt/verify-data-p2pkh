@@ -1,12 +1,12 @@
 // Simple sha256 data verify contract
 contract CheckDataIntegrity {
   //sha256("abc")
-  //ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+  //0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
     Sha256 hash;
     constructor(Sha256 shaSum) {
         this.hash = shaSum;
     }
-    //data Bytes = "abc" (616263)
+    //data Bytes = "abc" (0x616263)
     public function validateDataChecksum(bytes dataBytes) {
         require(sha256(dataBytes) == this.hash);
     }
