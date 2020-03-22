@@ -1,5 +1,5 @@
 # Verify Data P2PKH Scrypt Contract
-Bitcoin locking script contract contains a shasum of future data required to be input to spend the output with the specified public key.
+A Bitcoin locking script which contract which contains a shasum of future data required to be input to spend the output with the specified public key.
 
 # sCrypt Project Boilerplate
 Boilerplate: https://github.com/scrypt-sv/boilerplate
