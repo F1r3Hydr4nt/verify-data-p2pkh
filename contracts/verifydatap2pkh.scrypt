@@ -1,0 +1,34 @@
+/**
+A Bitcoin contract which is instantiated with a shasum of known data
+required to be input to spend the output with the specified public key.
+
+Demo values:
+sha256("abc") = 0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+bytes("abc") = 0x616263
+**/
+
+// Simple Sha256 Data Check
+contract CheckDataIntegrity {
+    Sha256 hash;
+    constructor(Sha256 shaSum) {
+        this.hash = shaSum;
+    }
+    public function verifyChecksum(bytes dataBytes) {
+        require(sha256(dataBytes) == this.hash);
+    }
+}
+
+// Main CheckDataIntegrity and P2PKH Contract
+contract VerifyDataP2PKH {
+    Ripemd160 pubKeyHash;
+    Sha256 hash;
+    constructor(Ripemd160 pubKeyHash, Sha256 shaSum) {
+        this.pubKeyHash = pubKeyHash;
+        this.hash = shaSum;
+    }
+    public function verify(bytes data, Sig sig, PubKey pubKey) {
+        CheckDataIntegrity dataCheck = new CheckDataIntegrity(this.hash);
+        P2PKH p2pk = new P2PKH(this.pubKeyHash);
+        require(dataCheck.verifyChecksum(data) && p2pk.spend(sig, pubKey));
+    }
+}
